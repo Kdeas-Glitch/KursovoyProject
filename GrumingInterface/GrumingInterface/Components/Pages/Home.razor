@@ -1,0 +1,39 @@
+﻿@page "/"
+@inject AppState State
+
+<PageTitle>Home</PageTitle>
+
+<h1>Списки</h1>
+
+<ul class="item-list">
+
+    @foreach (var item in Items)
+    {
+        <li @key="item.IdType" class="item-card">
+            <strong>@item.Name</strong>
+        </li>
+    }
+</ul>
+
+<textarea></textarea>
+
+
+@code {
+    private List<TypeAnimal> Items = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetList();
+    }
+
+    private async Task GetList()
+    {
+        
+        var l = await State.client.GetFromJsonAsync<List<TypeAnimal>>($"api/Admin/Type");
+
+        foreach(var i in l)
+        {
+            Items.Add(i);
+        }
+    }
+}

@@ -1,0 +1,64 @@
+[
+  {
+    "ContainingType": "GrumingAPI.Controllers.AdminController",
+    "Method": "GetBreeds",
+    "RelativePath": "api/Admin/Breed",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.AdminController",
+    "Method": "PostBreeds",
+    "RelativePath": "api/Admin/Breed",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "br",
+        "Type": "GrumingAPI.Controllers.AdminController\u002BBreedPost",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.AdminController",
+    "Method": "GetClients",
+    "RelativePath": "api/Admin/Clients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.AdminController",
+    "Method": "GetTypeAnimal",
+    "RelativePath": "api/Admin/Type",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.AdminController",
+    "Method": "PostTypeAnimal",
+    "RelativePath": "api/Admin/Type",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tp",
+        "Type": "GrumingAPI.Controllers.AdminController\u002BTypePost",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

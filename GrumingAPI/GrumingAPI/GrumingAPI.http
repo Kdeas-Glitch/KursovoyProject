@@ -1,0 +1,6 @@
+@GrumingAPI_HostAddress = http://localhost:5220
+
+GET {{GrumingAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

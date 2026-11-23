@@ -1,0 +1,81 @@
+﻿@page "/Animal"
+@inject AppState State
+
+<PageTitle>Animal</PageTitle>
+
+<h1 class="qwe">Списки</h1>
+
+<ul class="item-list">
+
+    @foreach (var item in Items)
+    {
+        <li @key="item.IdType" class="item-card">
+            <strong>@item.Name</strong>
+        </li>
+    }
+</ul>
+
+<input id="animalName"
+       type="text"
+       @bind="name"
+       @bind:event="oninput" />
+
+<button @onclick="Pluses">Сохранить</button>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+
+<p role="status">Current count: @currentCount</p>
+
+<p role="status"> @value</p>
+
+
+
+@code {
+    private string name = "";
+    private int value = 0;
+
+    private List<TypeAnimal> Items = new();
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetList();
+    }
+
+    private void Pluses()
+    {
+        value++;
+    }
+    private async Task GetList()
+    {
+
+        var l = await State.client.GetFromJsonAsync<List<TypeAnimal>>($"api/Admin/Type");
+
+        foreach (var i in l)
+        {
+            Items.Add(i);
+        }
+    }
+
+    private async Task PostAnimal()
+    {
+        if (name != "")
+        {
+            var r = await State.client.PostAsJsonAsync(
+                $"api/Admin/Type",
+                new
+                {
+                    Name = this.name
+                }
+            );
+        }
+    }
+}
