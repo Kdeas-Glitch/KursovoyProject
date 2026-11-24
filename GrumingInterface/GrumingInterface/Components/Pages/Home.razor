@@ -6,12 +6,13 @@
 <h1>Списки</h1>
 
 <ul class="item-list">
-
-    @foreach (var item in Items)
-    {
-        <li @key="item.IdType" class="item-card">
-            <strong>@item.Name</strong>
-        </li>
+    @if(Items.Count>0){
+        @foreach (var item in Items)
+        {
+            <li @key="item.IdType" class="item-card">
+                <strong>@item.Name</strong>
+            </li>
+        }
     }
 </ul>
 
@@ -28,12 +29,18 @@
 
     private async Task GetList()
     {
-        
-        var l = await State.client.GetFromJsonAsync<List<TypeAnimal>>($"api/Admin/Type");
-
-        foreach(var i in l)
+        try
         {
-            Items.Add(i);
+            var l = await State.client.GetFromJsonAsync<List<TypeAnimal>>($"api/Admin/Type");
+
+            foreach (var i in l)
+            {
+                Items.Add(i);
+            }
+        }
+        catch
+        {
+            
         }
     }
 }

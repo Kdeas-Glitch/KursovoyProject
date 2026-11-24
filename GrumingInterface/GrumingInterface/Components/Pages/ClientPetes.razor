@@ -1,0 +1,58 @@
+﻿@page "/Petes"
+@inject AppState State
+@rendermode InteractiveServer
+
+<PageTitle>Виды животных</PageTitle>
+
+<h1 class="qwe">Питомцы</h1>
+
+<ul class="item-list">
+
+    @foreach (var item in Items)
+    {
+        bool isSelected = SelectedIdType == item.IdType;
+
+        <li @key="item.IdType"
+            class="item-card @(isSelected ? "selected" : "")"
+            @onclick="() => SelectItem(item)">
+            <strong>@item.Name</strong>
+        </li>
+
+
+    }
+</ul>
+
+
+
+
+@code {
+
+    private int? SelectedIdType;
+    private ClientPet? SelectedItem => Items.FirstOrDefault(x => x.IdType == SelectedIdType);
+    private List<ClientPet> Items = new();
+
+    private void SelectItem(ClientPet item)
+    {
+        SelectedIdType = SelectedIdType == item.IdType ? null : item.IdType;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetList();
+    }
+
+    private async Task GetList()
+    {
+        Items.Clear();
+
+        var l = await State.client.GetFromJsonAsync<List<ClientPet>>($"api/Pets");
+
+        foreach (var i in l)
+        {
+            Items.Add(i);
+        }
+    }
+
+   
+
+}

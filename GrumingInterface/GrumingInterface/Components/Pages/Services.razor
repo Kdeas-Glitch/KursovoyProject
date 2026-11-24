@@ -1,0 +1,160 @@
+﻿@page "/Services"
+@inject AppState State
+@rendermode InteractiveServer
+
+<PageTitle>Услуги</PageTitle>
+
+<h1 class="qwe">Услуги</h1>
+
+<ul class="item-list">
+
+    @foreach (var item in Items)
+    {
+        bool isSelected = SelectedIdBreed == item.IdService;
+
+        <li @key="item.IdService"
+            class="item-card @(isSelected ? "selected" : "")"
+            @onclick="() => SelectItem(item)">
+            <strong>
+                @item.Name:
+                <p>Время @item.Time; Цена @item.Price; </p>
+            </strong>
+        </li>
+    }
+</ul>
+
+@if (SelectedItem is not null)
+{
+    <p>Выбрано: <b>@SelectedItem.Name</b> (ID: @SelectedItem.IdService)</p>
+}
+
+<input type="text"
+       @bind="name"
+       @bind:event="oninput" />
+<input type="number"
+       @bind="Price"
+       @bind:event="oninput" />
+<input type="text"
+       @bind="Time"
+       @bind:event="oninput" />
+
+<button @onclick="PostBreed">Сохранить</button>
+<button @onclick="DeleteBreed">Удалить</button>
+
+
+
+
+@code {
+
+    private List<Service> Items = new();
+
+    private string name = "";
+    private int Price = 0;
+    private int Time = 0;
+
+    private int? SelectedIdBreed;
+    private Service? SelectedItem => Items.FirstOrDefault(x => x.IdService == SelectedIdBreed);
+
+
+
+
+    private void SelectItem(Service item)
+    {
+        SelectedIdBreed = SelectedIdBreed == item.IdService ? null : item.IdService;
+        if (SelectedIdBreed != null)
+        {
+            name = item.Name;
+            Price = item.Price;
+            Time = item.Time;
+        }
+        else
+        {
+            name = "";
+            Price = 0;
+            Time = 0;
+        }
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetList();
+    }
+
+    private async Task GetList()
+    {
+        Items.Clear();
+
+        var l = await State.client.GetFromJsonAsync<List<Service>>($"api/Service");
+
+        foreach (var i in l)
+        {
+            Items.Add(i);
+        }
+    }
+
+    private async Task PostBreed()
+    {
+        if (name != "")
+        {
+            if (SelectedIdBreed == null)
+            {
+                var r = await State.client.PostAsJsonAsync(
+                    $"api/Service",
+                    new
+                    {
+                        Name = this.name,
+                        AddTime = this.Time,
+                        Price = this.Price
+                    }
+                );
+
+                if (r.IsSuccessStatusCode)
+                {
+                    await GetList();
+                }
+            }
+            else
+            {
+                var r = await State.client.PatchAsJsonAsync(
+                    $"api/Service/{SelectedIdBreed}",
+                    new
+                    {
+                        Name = this.name,
+                        AddTime = this.Time,
+                        Price = this.Price
+                    }
+                );
+
+                if (r.IsSuccessStatusCode)
+                {
+                    await GetList();
+                }
+            }
+
+
+        }
+    }
+    private async Task DeleteBreed()
+    {
+        if (SelectedIdBreed != null)
+        {
+            var r = await State.client.DeleteAsync(
+                $"api/Service/{SelectedIdBreed}"
+            );
+
+            if (r.IsSuccessStatusCode)
+            {
+                Service tp = Items.FirstOrDefault(i => i.IdService == SelectedIdBreed);
+
+                Items.Remove(tp);
+
+                SelectedIdBreed = null;
+
+                name = "";
+                Price = 0;
+                Time = 0;
+            }
+        }
+    }
+}

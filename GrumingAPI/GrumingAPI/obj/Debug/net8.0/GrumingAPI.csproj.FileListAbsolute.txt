@@ -111,3 +111,4 @@ C:\Users\HardShop\Desktop\Projects\kurs\GrumingAPI\GrumingAPI\obj\Debug\net8.0\r
 C:\Users\HardShop\Desktop\Projects\kurs\GrumingAPI\GrumingAPI\obj\Debug\net8.0\GrumingAPI.pdb
 C:\Users\HardShop\Desktop\Projects\kurs\GrumingAPI\GrumingAPI\obj\Debug\net8.0\GrumingAPI.genruntimeconfig.cache
 C:\Users\HardShop\Desktop\Projects\kurs\GrumingAPI\GrumingAPI\obj\Debug\net8.0\ref\GrumingAPI.dll
+C:\Users\HardShop\Desktop\Projects\kurs\GrumingAPI\GrumingAPI\obj\Debug\net8.0\GrumingAPI.sourcelink.json

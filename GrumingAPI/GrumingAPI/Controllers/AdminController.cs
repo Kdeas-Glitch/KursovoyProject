@@ -25,50 +25,9 @@ namespace GrumingAPI.Controllers
             return Ok(_db.Breeds.ToList());
         }
 
-        public record BreedPost(string Name,int MarkUp,int AddTime);
-        public record TypePost(string Name);
-
-        [HttpPost("Breed")]
-        public IActionResult PostBreeds(BreedPost br)
-        {
-            if(br.Name == null)
-            {
-                return BadRequest();
-            }
-
-            Breed breed = new();
-
-            breed.Name = br.Name;
-            breed.Markup = br.MarkUp;
-            breed.AddTime = br.AddTime;
-
-            _db.Breeds.Add(breed);
-            _db.SaveChanges();
-            return Ok();
-        }
+       
 
 
 
-        [HttpGet("Type")]
-        public IActionResult GetTypeAnimal()
-        {
-            return Ok(_db.TypeAnimals.ToList());
-        }
-
-        [HttpPost("Type")]
-        public IActionResult PostTypeAnimal(TypePost tp)
-        {
-            if (tp.Name == null)
-            {
-                return BadRequest();
-            }
-
-            TypeAnimal t = new TypeAnimal();
-            t.Name = tp.Name;
-
-            _db.TypeAnimals.Add(t);
-            _db.SaveChanges();
-            return Ok();
-        }
     }
 }

@@ -11,22 +11,6 @@
   },
   {
     "ContainingType": "GrumingAPI.Controllers.AdminController",
-    "Method": "PostBreeds",
-    "RelativePath": "api/Admin/Breed",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "br",
-        "Type": "GrumingAPI.Controllers.AdminController\u002BBreedPost",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "GrumingAPI.Controllers.AdminController",
     "Method": "GetClients",
     "RelativePath": "api/Admin/Clients",
     "HttpMethod": "GET",
@@ -36,9 +20,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "GrumingAPI.Controllers.AdminController",
-    "Method": "GetTypeAnimal",
-    "RelativePath": "api/Admin/Type",
+    "ContainingType": "GrumingAPI.Controllers.BreedController",
+    "Method": "GetBreeds",
+    "RelativePath": "api/Breed",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -46,16 +30,205 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "GrumingAPI.Controllers.AdminController",
+    "ContainingType": "GrumingAPI.Controllers.BreedController",
+    "Method": "PostBreeds",
+    "RelativePath": "api/Breed",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "br",
+        "Type": "GrumingAPI.Controllers.BreedController\u002BBreedPost",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.BreedController",
+    "Method": "PatchBreeds",
+    "RelativePath": "api/Breed/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "br",
+        "Type": "GrumingAPI.Controllers.BreedController\u002BBreedPatch",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.BreedController",
+    "Method": "DeleteBreed",
+    "RelativePath": "api/Breed/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.PetsController",
+    "Method": "PostPet",
+    "RelativePath": "api/Pets",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "br",
+        "Type": "GrumingAPI.Controllers.PetsController\u002BPetPost",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.PetsController",
+    "Method": "GetPets",
+    "RelativePath": "api/Pets",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.ServiceController",
+    "Method": "GetServices",
+    "RelativePath": "api/Service",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.ServiceController",
+    "Method": "PostService",
+    "RelativePath": "api/Service",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "br",
+        "Type": "GrumingAPI.Controllers.ServiceController\u002BServicePost",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.ServiceController",
+    "Method": "PatchBreeds",
+    "RelativePath": "api/Service/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "br",
+        "Type": "GrumingAPI.Controllers.ServiceController\u002BServicePatch",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.ServiceController",
+    "Method": "DeleteBreed",
+    "RelativePath": "api/Service/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.TypeController",
+    "Method": "GetTypeAnimal",
+    "RelativePath": "api/Type",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.TypeController",
     "Method": "PostTypeAnimal",
-    "RelativePath": "api/Admin/Type",
+    "RelativePath": "api/Type",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "tp",
-        "Type": "GrumingAPI.Controllers.AdminController\u002BTypePost",
+        "Type": "GrumingAPI.Controllers.TypeController\u002BTypePost",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.TypeController",
+    "Method": "PatchTypeAnimal",
+    "RelativePath": "api/Type/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tp",
+        "Type": "GrumingAPI.Controllers.TypeController\u002BTypePatch",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GrumingAPI.Controllers.TypeController",
+    "Method": "DeleteTypeAnimal",
+    "RelativePath": "api/Type/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

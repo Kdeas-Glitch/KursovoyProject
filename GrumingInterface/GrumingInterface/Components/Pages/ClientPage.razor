@@ -1,0 +1,139 @@
+﻿@page "/Clients"
+@inject AppState State
+@rendermode InteractiveServer
+
+<PageTitle>Услуги</PageTitle>
+
+<h1 class="qwe">Услуги</h1>
+<h2 class="qwe">Вид Животного:</h2>
+<ul class="item-list">
+
+    @foreach (var item in Types)
+    {
+        bool isSelected = SelectedIdType == item.IdType;
+
+        <li @key="item.IdType"
+            class="item-card @(isSelected ? "selected" : "")"
+            @onclick="() => SelectItemType(item)">
+            <strong>@item.Name</strong>
+        </li>
+    }
+</ul>
+<h2 class="qwe">Порода:</h2>
+
+<ul class="item-list">
+
+    @foreach (var item in Breedes)
+    {
+        bool isSelected = SelectedIdBreed == item.IdBreed;
+
+        <li @key="item.IdBreed"
+            class="item-card @(isSelected ? "selected" : "")"
+            @onclick="() => SelectItemBreed(item)">
+            <strong>
+                @item.Name:
+                <p>Доп Время @item.Markup; Доп Цена @item.AddTime; </p>
+            </strong>
+        </li>
+    }
+</ul>
+
+
+@if (SelectedItemTypes is not null)
+{
+    <p>Выбранный Вид: <b>@SelectedItemTypes.Name</b></p>
+}
+@if (SelectedItemBreed is not null)
+{
+    <p>Выбранная порода: <b>@SelectedItemBreed.Name</b></p>
+}
+
+<p>Имя питомца</p>
+<input id="animalName"
+       type="text"
+       @bind="name"
+       @bind:event="oninput" />
+
+
+<button @onclick="RegPet">Сохранить</button>
+
+<h1 @bind="tit" @bind:event = "oninput"></h1>
+
+@code {
+
+    private List<Breed> Breedes = new();
+    private List<TypeAnimal> Types = new();
+
+    private string name = "";
+    private string tit = "";
+    private string comment = "";
+
+    private int? SelectedIdBreed;
+    private Breed? SelectedItemBreed => Breedes.FirstOrDefault(x => x.IdBreed == SelectedIdBreed);
+
+
+    private int? SelectedIdType;
+    private TypeAnimal? SelectedItemTypes => Types.FirstOrDefault(x => x.IdType == SelectedIdType);
+
+    private async void RegPet()
+    {
+        if (SelectedItemBreed != null && SelectedItemTypes != null && name != "")
+        {
+            var r = await State.client.PostAsJsonAsync(
+                    $"api/Pets",
+                    new
+                    {
+                        Name = this.name,
+                        Type = SelectedItemTypes.IdType,
+                        Breed = SelectedItemBreed.IdBreed
+                    }
+            );
+            
+
+            tit = "Питомец успешно зарегистрирован";
+
+            SelectedIdBreed = null;
+            SelectedIdType = null;
+
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetList();
+    }
+
+
+    private void SelectItemBreed(Breed item)
+    {
+        SelectedIdBreed = SelectedIdBreed == item.IdBreed ? null : item.IdBreed;
+    }
+
+    private void SelectItemType(TypeAnimal item)
+    {
+        SelectedIdType = SelectedIdType == item.IdType ? null : item.IdType;
+    }
+
+    private async Task GetList()
+    {
+        Breedes.Clear();
+        Types.Clear();
+
+
+        var l = await State.client.GetFromJsonAsync<List<Breed>>($"api/Breed");
+
+        foreach (var i in l)
+        {
+            Breedes.Add(i);
+        }
+        
+
+        var a = await State.client.GetFromJsonAsync<List<TypeAnimal>>($"api/Type");
+
+        foreach (var i in a)
+        {
+            Types.Add(i);
+        }
+    }
+
+}

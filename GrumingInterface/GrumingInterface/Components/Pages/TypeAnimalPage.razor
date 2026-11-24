@@ -1,47 +1,59 @@
 ﻿@page "/Animal"
 @inject AppState State
+@rendermode InteractiveServer
 
-<PageTitle>Animal</PageTitle>
+<PageTitle>Виды животных</PageTitle>
 
-<h1 class="qwe">Списки</h1>
+<h1 class="qwe">Виды животных</h1>
 
 <ul class="item-list">
 
     @foreach (var item in Items)
     {
-        <li @key="item.IdType" class="item-card">
+        bool isSelected = SelectedIdType == item.IdType;
+
+        <li @key="item.IdType"
+            class="item-card @(isSelected ? "selected" : "")"
+            @onclick="() => SelectItem(item)">
             <strong>@item.Name</strong>
         </li>
     }
 </ul>
+
+@if (SelectedItem is not null)
+{
+    <p>Выбрано: <b>@SelectedItem.Name</b> (ID: @SelectedItem.IdType)</p>
+}
 
 <input id="animalName"
        type="text"
        @bind="name"
        @bind:event="oninput" />
 
-<button @onclick="Pluses">Сохранить</button>
+<button @onclick="PostAnimal">Сохранить</button>
+<button @onclick="DeleteAnimal">Удалить</button>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-
-<p role="status">Current count: @currentCount</p>
-
-<p role="status"> @value</p>
 
 
 
 @code {
+
     private string name = "";
-    private int value = 0;
+
+    private int? SelectedIdType;
+    private TypeAnimal? SelectedItem => Items.FirstOrDefault(x => x.IdType == SelectedIdType);
 
     private List<TypeAnimal> Items = new();
 
-    private int currentCount = 0;
 
-    private void IncrementCount()
+
+    private void SelectItem(TypeAnimal item)
     {
-        currentCount++;
+        SelectedIdType = SelectedIdType == item.IdType ? null : item.IdType;
+        if (name == "")
+            name = item.Name;
+        else
+            name = "";
     }
 
 
@@ -50,14 +62,11 @@
         await GetList();
     }
 
-    private void Pluses()
-    {
-        value++;
-    }
     private async Task GetList()
     {
+        Items.Clear();
 
-        var l = await State.client.GetFromJsonAsync<List<TypeAnimal>>($"api/Admin/Type");
+        var l = await State.client.GetFromJsonAsync<List<TypeAnimal>>($"api/Type");
 
         foreach (var i in l)
         {
@@ -69,13 +78,63 @@
     {
         if (name != "")
         {
-            var r = await State.client.PostAsJsonAsync(
-                $"api/Admin/Type",
-                new
+            if (SelectedIdType != null)
+            {
+
+                var r = await State.client.PatchAsJsonAsync(
+                    $"api/Type/{SelectedIdType}",
+                    new
+                    {
+                        Name = this.name
+                    }
+                );
+
+
+                if (r.IsSuccessStatusCode)
                 {
-                    Name = this.name
+                    await GetList();
                 }
+            }
+            else
+            {
+                var r = await State.client.PostAsJsonAsync(
+                    $"api/Type",
+                    new
+                    {
+                        Name = this.name
+                    }
+                );
+
+                if (r.IsSuccessStatusCode)
+                {
+                    // TypeAnimal tp = new();
+                    // tp.Name = name;
+
+                    // Items.Add(tp);
+
+                    await GetList();
+                }
+            }
+        }
+    }
+    private async Task DeleteAnimal()
+    {
+        if (SelectedIdType != null)
+        {
+            var r = await State.client.DeleteAsync(
+                $"api/Type/{SelectedIdType}"
             );
+
+            if (r.IsSuccessStatusCode)
+            {
+                TypeAnimal tp = Items.FirstOrDefault(i => i.IdType==SelectedIdType);
+
+                Items.Remove(tp);
+
+                name = "";
+
+                SelectedIdType = null;
+            }
         }
     }
 }

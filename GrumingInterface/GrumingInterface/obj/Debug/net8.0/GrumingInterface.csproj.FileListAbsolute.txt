@@ -30,3 +30,4 @@ C:\Users\HardShop\Desktop\Projects\kurs\GrumingInterface\GrumingInterface\obj\De
 C:\Users\HardShop\Desktop\Projects\kurs\GrumingInterface\GrumingInterface\obj\Debug\net8.0\GrumingInterface.pdb
 C:\Users\HardShop\Desktop\Projects\kurs\GrumingInterface\GrumingInterface\obj\Debug\net8.0\GrumingInterface.genruntimeconfig.cache
 C:\Users\HardShop\Desktop\Projects\kurs\GrumingInterface\GrumingInterface\obj\Debug\net8.0\ref\GrumingInterface.dll
+C:\Users\HardShop\Desktop\Projects\kurs\GrumingInterface\GrumingInterface\obj\Debug\net8.0\GrumingInterface.sourcelink.json
