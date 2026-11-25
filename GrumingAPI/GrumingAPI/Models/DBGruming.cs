@@ -42,7 +42,7 @@ public partial class DBGruming : DbContext
             entity.ToTable("breed");
 
             entity.Property(e => e.IdBreed)
-                .ValueGeneratedNever()
+                .UseIdentityByDefaultColumn()
                 .HasColumnName("id_breed");
             entity.Property(e => e.AddTime)
                 .HasComment("Доп время")

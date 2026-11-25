@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GrumingAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20fe3f0f82053fb14046f02b79a1c757bf408ee7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a1800c08f235d950e845bea925e1fdf1861bd24")]
 [assembly: System.Reflection.AssemblyProductAttribute("GrumingAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GrumingAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

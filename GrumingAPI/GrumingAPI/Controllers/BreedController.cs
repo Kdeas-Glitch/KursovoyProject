@@ -31,7 +31,6 @@ namespace GrumingAPI.Controllers
 
             Breed breed = new();
 
-            breed.IdBreed = 0;
             breed.Name = br.Name;
             breed.Markup = br.MarkUp;
             breed.AddTime = br.AddTime;
